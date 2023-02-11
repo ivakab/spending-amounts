@@ -89,9 +89,9 @@ export const setAmountFood = (amount: number) => {
   return { type: TypeOfAction.SET_AMOUNT_FOOD, payload: amount };
 };
 
-// export const setAmountFoodDate = (date: number) => {
-//   return { type: TypeOfAction.SET_AMOUNT_FOOD, payload: date };
-// };
+export const setAmountFoodDate = (date: number) => {
+  return { type: TypeOfAction.SET_AMOUNT_FOOD, payload: date };
+};
 
 export const setAmountTransport = (amount: number) => {
   return { type: TypeOfAction.SET_AMOUNT_TRANSPORT, payload: amount };
