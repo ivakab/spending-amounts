@@ -7,8 +7,8 @@ import OTHER from "../../../images/categoriesImg/otherIcon.png";
 import {
   setAmountFood,
   // setAmountFoodDate,
-  setAmountHealth,
-  setAmountTransport,
+  // setAmountHealth,
+  // setAmountTransport,
   setTempValue,
 } from "../../../redux/spending-reducer";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,19 +31,19 @@ const CategoriesBlock = () => {
 
   const setFood = () => {
     const date = getDate();
-    dispatch(setAmountFood({ amount: +temp, date: date }));
+    dispatch(setAmountFood({ amount: +temp, date: date, type: "food" }));
     dispatch(setTempValue({ temporaryAmount: "" }));
   };
 
   const setTransport = () => {
     const date = getDate();
-    dispatch(setAmountTransport({ amount: +temp, date: date }));
+    dispatch(setAmountFood({ amount: +temp, date: date, type: "transport" }));
     dispatch(setTempValue({ temporaryAmount: "" }));
   };
 
   const setHealth = () => {
     const date = getDate();
-    dispatch(setAmountHealth({ amount: +temp, date: date }));
+    dispatch(setAmountFood({ amount: +temp, date: date, type: "health" }));
     dispatch(setTempValue({ temporaryAmount: "" }));
   };
 
