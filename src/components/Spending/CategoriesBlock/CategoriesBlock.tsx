@@ -32,19 +32,19 @@ const CategoriesBlock = () => {
   const setFood = () => {
     const date = getDate();
     dispatch(setAmountFood({ amount: +temp, date: date }));
-    dispatch(setTempValue({ temp: "" }));
+    dispatch(setTempValue({ temporaryAmount: "" }));
   };
 
   const setTransport = () => {
     const date = getDate();
     dispatch(setAmountTransport({ amount: +temp, date: date }));
-    dispatch(setTempValue({ temp: "" }));
+    dispatch(setTempValue({ temporaryAmount: "" }));
   };
 
   const setHealth = () => {
     const date = getDate();
     dispatch(setAmountHealth({ amount: +temp, date: date }));
-    dispatch(setTempValue({ temp: "" }));
+    dispatch(setTempValue({ temporaryAmount: "" }));
   };
 
   const showCategories = () => {

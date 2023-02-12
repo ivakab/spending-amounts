@@ -31,7 +31,7 @@ const CalculationButtons = () => {
 
   const updateAmount = (val: string) => {
     amount = val;
-    dispatch(setTempValue({ temp: val }));
+    dispatch(setTempValue({ temporaryAmount: val }));
   };
 
   const buttonsList: {

@@ -13,7 +13,7 @@ interface ActionType {
 type ActionPayload = {
   amount?: number;
   date?: Date;
-  temp?: string;
+  temporaryAmount?: string;
 };
 
 type CategoryValueState = {
@@ -84,7 +84,7 @@ const spendingReducer = (state = initialState, action: ActionType) => {
       };
     }
     case TypeOfAction.SET_TEMP: {
-      return { ...state, temporaryAmount: action.payload.temp };
+      return { ...state, temporaryAmount: action.payload.temporaryAmount };
     }
     default:
       return state;
