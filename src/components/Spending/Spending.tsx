@@ -8,7 +8,7 @@ const Spending = () => {
     <div>
       <CalculationButtons />
       <CategoriesBlock />
-      <SpendingHistory />
+      {/* <SpendingHistory /> */}
     </div>
   );
 };

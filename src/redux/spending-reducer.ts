@@ -23,12 +23,6 @@ type CategoryValueState = {
   type: string;
 };
 
-// type CategoryKeys = "food" | "transport" | "health" | "other";
-
-// type CategoryType = {
-//   [key: string]: CategoryValueState;
-// };
-
 interface IState {
   categories: CategoryValueState[];
   temporaryAmount: string;
@@ -63,14 +57,6 @@ const spendingReducer = (state = initialState, action: ActionType) => {
 export const setAmountFood = (payload: ActionPayload) => {
   return { type: TypeOfAction.SET_AMOUNT_FOOD, payload: payload };
 };
-
-// export const setAmountTransport = (payload: ActionPayload) => {
-//   return { type: TypeOfAction.SET_AMOUNT_TRANSPORT, payload: payload };
-// };
-
-// export const setAmountHealth = (payload: ActionPayload) => {
-//   return { type: TypeOfAction.SET_AMOUNT_HEALTH, payload: payload };
-// };
 
 export const setTempValue = (payload: ActionPayload) => {
   return { type: TypeOfAction.SET_TEMP, payload: payload };

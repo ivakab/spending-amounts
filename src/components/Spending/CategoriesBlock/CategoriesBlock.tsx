@@ -4,14 +4,9 @@ import FOOD from "../../../images/categoriesImg/foodIcon.png";
 import TRANSPORT from "../../../images/categoriesImg/transportIcon.png";
 import HEALTH from "../../../images/categoriesImg/healthIcon.png";
 import OTHER from "../../../images/categoriesImg/otherIcon.png";
-import {
-  setAmountFood,
-  // setAmountFoodDate,
-  // setAmountHealth,
-  // setAmountTransport,
-  setTempValue,
-} from "../../../redux/spending-reducer";
+import { setAmountFood, setTempValue } from "../../../redux/spending-reducer";
 import { useDispatch, useSelector } from "react-redux";
+import SpendingHistory from "../SpendingHistory/SpendingHistory";
 
 const CategoriesBlock = () => {
   const dispatch = useDispatch();
@@ -75,18 +70,21 @@ const CategoriesBlock = () => {
   ];
 
   return (
-    <div className={styles.categoriesBlock}>
-      {categoriesList.map((item, index) => {
-        return (
-          <button
-            onClick={item.onClick}
-            className={styles.categoryBtn}
-            key={index}
-          >
-            {<img className={styles.iconImg} src={item.img} />}
-          </button>
-        );
-      })}
+    <div>
+      <div className={styles.categoriesBlock}>
+        {categoriesList.map((item, index) => {
+          return (
+            <button
+              onClick={item.onClick}
+              className={styles.categoryBtn}
+              key={index}
+            >
+              {<img className={styles.iconImg} src={item.img} />}
+            </button>
+          );
+        })}
+      </div>
+      <SpendingHistory categories={categories} />
     </div>
   );
 };
