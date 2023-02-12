@@ -5,13 +5,19 @@ enum TypeOfAction {
   SET_TEMP = "SET_TEMP",
 }
 
-type ActionType = {
+interface ActionType {
   type: TypeOfAction;
-  payload?: number;
+  payload: ActionPayload;
+}
+
+type ActionPayload = {
+  amount?: number;
+  date?: Date;
+  temp?: string;
 };
 
 type CategoryValueState = {
-  date: string;
+  date: Date;
   amount: number;
 };
 
@@ -43,8 +49,8 @@ const spendingReducer = (state = initialState, action: ActionType) => {
   switch (action.type) {
     case TypeOfAction.SET_AMOUNT_FOOD: {
       state.categories.food.push({
-        date: "today",
-        amount: action.payload || 0,
+        date: action.payload.date || new Date(),
+        amount: action.payload.amount || 0,
       });
       return {
         ...state,
@@ -53,8 +59,8 @@ const spendingReducer = (state = initialState, action: ActionType) => {
     }
     case TypeOfAction.SET_AMOUNT_TRANSPORT: {
       state.categories.transport.push({
-        date: "today",
-        amount: action.payload || 0,
+        date: action.payload.date || new Date(),
+        amount: action.payload.amount || 0,
       });
       return {
         ...state,
@@ -66,8 +72,8 @@ const spendingReducer = (state = initialState, action: ActionType) => {
     }
     case TypeOfAction.SET_AMOUNT_HEALTH: {
       state.categories.health.push({
-        date: "today",
-        amount: action.payload || 0,
+        date: action.payload.date || new Date(),
+        amount: action.payload.amount || 0,
       });
       return {
         ...state,
@@ -78,31 +84,27 @@ const spendingReducer = (state = initialState, action: ActionType) => {
       };
     }
     case TypeOfAction.SET_TEMP: {
-      return { ...state, temporaryAmount: action.payload };
+      return { ...state, temporaryAmount: action.payload.temp };
     }
     default:
       return state;
   }
 };
 
-export const setAmountFood = (amount: number) => {
-  return { type: TypeOfAction.SET_AMOUNT_FOOD, payload: amount };
+export const setAmountFood = (payload: ActionPayload) => {
+  return { type: TypeOfAction.SET_AMOUNT_FOOD, payload: payload };
 };
 
-export const setAmountFoodDate = (date: number) => {
-  return { type: TypeOfAction.SET_AMOUNT_FOOD, payload: date };
+export const setAmountTransport = (payload: ActionPayload) => {
+  return { type: TypeOfAction.SET_AMOUNT_TRANSPORT, payload: payload };
 };
 
-export const setAmountTransport = (amount: number) => {
-  return { type: TypeOfAction.SET_AMOUNT_TRANSPORT, payload: amount };
+export const setAmountHealth = (payload: ActionPayload) => {
+  return { type: TypeOfAction.SET_AMOUNT_HEALTH, payload: payload };
 };
 
-export const setAmountHealth = (amount: number) => {
-  return { type: TypeOfAction.SET_AMOUNT_HEALTH, payload: amount };
-};
-
-export const setTempValue = (temp: string) => {
-  return { type: TypeOfAction.SET_TEMP, payload: temp };
+export const setTempValue = (payload: ActionPayload) => {
+  return { type: TypeOfAction.SET_TEMP, payload: payload };
 };
 
 export default spendingReducer;
