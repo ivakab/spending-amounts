@@ -54,7 +54,7 @@ const spendingReducer = (state = initialState, action: ActionType) => {
   }
 };
 
-export const setAmountFood = (payload: ActionPayload) => {
+export const setNewSpending = (payload: ActionPayload) => {
   return { type: TypeOfAction.SET_AMOUNT_FOOD, payload: payload };
 };
 

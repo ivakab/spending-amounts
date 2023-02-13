@@ -5,3 +5,39 @@
   border-radius: 5px;
   overflow: auto;
 }
+
+.historyCards {
+  margin: 7px;
+  border: 2px solid gainsboro;
+  border-radius: 6px;
+  display: grid;
+  grid-template-areas:
+    "type date"
+    "type amount";
+  grid-template-rows: 30px 30px;
+  grid-template-columns: 70px 1fr;
+}
+
+.type,
+.date,
+.amount {
+  padding: 5px;
+}
+
+.type {
+  opacity: 0.4;
+  grid-area: type;
+}
+
+.date {
+  grid-area: date;
+}
+
+.amount {
+  grid-area: amount;
+}
+
+.image {
+  width: 50px;
+  height: 50px;
+}

@@ -1,10 +1,7 @@
 import React from "react";
 import styles from "./CategoriesBlock.module.css";
-import FOOD from "../../../images/categoriesImg/foodIcon.png";
-import TRANSPORT from "../../../images/categoriesImg/transportIcon.png";
-import HEALTH from "../../../images/categoriesImg/healthIcon.png";
-import OTHER from "../../../images/categoriesImg/otherIcon.png";
-import { setAmountFood, setTempValue } from "../../../redux/spending-reducer";
+import { TypeImageMapping } from "../../../utils/typeImageMapping";
+import { setNewSpending, setTempValue } from "../../../redux/spending-reducer";
 import { useDispatch, useSelector } from "react-redux";
 import SpendingHistory from "../SpendingHistory/SpendingHistory";
 
@@ -24,21 +21,9 @@ const CategoriesBlock = () => {
     return new Date(date);
   };
 
-  const setFood = () => {
+  const setSpending = (type: string) => {
     const date = getDate();
-    dispatch(setAmountFood({ amount: +temp, date: date, type: "food" }));
-    dispatch(setTempValue({ temporaryAmount: "" }));
-  };
-
-  const setTransport = () => {
-    const date = getDate();
-    dispatch(setAmountFood({ amount: +temp, date: date, type: "transport" }));
-    dispatch(setTempValue({ temporaryAmount: "" }));
-  };
-
-  const setHealth = () => {
-    const date = getDate();
-    dispatch(setAmountFood({ amount: +temp, date: date, type: "health" }));
+    dispatch(setNewSpending({ amount: +temp, date: date, type: type }));
     dispatch(setTempValue({ temporaryAmount: "" }));
   };
 
@@ -49,22 +34,22 @@ const CategoriesBlock = () => {
   const categoriesList = [
     {
       name: "Food",
-      img: FOOD,
-      onClick: () => setFood(),
+      img: TypeImageMapping.food,
+      onClick: () => setSpending("food"),
     },
     {
       name: "Transport",
-      img: TRANSPORT,
-      onClick: () => setTransport(),
+      img: TypeImageMapping.transport,
+      onClick: () => setSpending("transport"),
     },
     {
       name: "Health",
-      img: HEALTH,
-      onClick: () => setHealth(),
+      img: TypeImageMapping.health,
+      onClick: () => setSpending("health"),
     },
     {
       name: "Other",
-      img: OTHER,
+      img: TypeImageMapping.other,
       onClick: () => showCategories(),
     },
   ];
