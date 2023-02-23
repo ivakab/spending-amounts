@@ -1,0 +1,32 @@
+.buttons {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: space-around;
+  border: 3px solid rgb(171, 171, 171);
+  border-radius: 8px;
+  padding: 5px;
+}
+
+.valueBtn {
+  align-items: center;
+  margin: 5px;
+  width: 80px;
+  height: 80px;
+  border: solid;
+  border-radius: 50%;
+}
+
+.valueBtn:hover {
+  cursor: pointer;
+  background-color: rgb(201, 201, 201);
+  box-shadow: 2px 2px 4px 2px rgba(97, 99, 93, 0.8);
+}
+
+.deleteButton {
+  width: 25px;
+  height: 25px;
+}
+
+.currentEnter {
+  height: 25px;
+}
