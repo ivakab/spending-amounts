@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./CategoriesBlock.module.css";
 import { TypeImageMapping } from "../../../utils/typeImageMapping";
-import { setNewSpending, setTempValue } from "../../../redux/spending-reducer";
+import { setNewSpending } from "../../../redux/spending-reducer";
 import { useDispatch, useSelector } from "react-redux";
 import SpendingHistory from "../SpendingHistory/SpendingHistory";
 import AddNewCategoryModal from "./AddNewCategoryModal";
@@ -12,7 +12,12 @@ import {
   updateSpending,
 } from "../../api/SpendingApi";
 
-const CategoriesBlock = () => {
+interface IProps {
+  amount: string;
+  onChange: (emptyAmount: string) => void;
+}
+
+const CategoriesBlock = (props: IProps) => {
   // updateSpending({
   //   _id: "63f5e0edf0c1c52765bebc9c",
   //   type: "health",
@@ -25,9 +30,6 @@ const CategoriesBlock = () => {
   // }).then();
 
   const dispatch = useDispatch();
-  const temp = useSelector(
-    (state: any) => state.spendingReducer.temporaryAmount
-  );
 
   const [showNewCategory, setShowNewCategory] = useState(false);
 
@@ -40,7 +42,7 @@ const CategoriesBlock = () => {
     const date = getDate();
     createSpending({
       type: type,
-      amount: +temp,
+      amount: +props.amount,
       date: date,
     }).then((res) => {
       dispatch(
@@ -52,7 +54,7 @@ const CategoriesBlock = () => {
         })
       );
     });
-    dispatch(setTempValue({ temporaryAmount: "" }));
+    props.onChange("");
   };
 
   const categoriesList = [
@@ -99,7 +101,6 @@ const CategoriesBlock = () => {
           );
         })}
       </div>
-      <SpendingHistory />
       <AddNewCategoryModal
         isOpen={showNewCategory}
         onClose={() => setShowNewCategory(false)}

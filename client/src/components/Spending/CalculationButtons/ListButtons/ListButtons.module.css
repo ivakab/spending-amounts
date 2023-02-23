@@ -1,0 +1,8 @@
+.buttons {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: space-around;
+  border: 3px solid rgb(171, 171, 171);
+  border-radius: 8px;
+  padding: 5px;
+}

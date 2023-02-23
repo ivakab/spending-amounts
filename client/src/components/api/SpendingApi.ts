@@ -2,7 +2,7 @@ import axios from "axios";
 import {
   CategoryValueState,
   NewCategoryValueState,
-} from "../../redux/spending-reducer";
+} from "../../interfaces/ISpendingProps";
 
 const instance = axios.create({
   baseURL: "/api",

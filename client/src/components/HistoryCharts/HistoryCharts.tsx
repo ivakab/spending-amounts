@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { useSelector } from "react-redux";
-import { CategoryValueState } from "../../redux/spending-reducer";
+import { CategoryValueState } from "../../interfaces/ISpendingProps";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
