@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setTempValue } from "../../../redux/spending-reducer";
 
 const CalculationButtons = () => {
-  // const [amount, setAmount]=useState(0)
+  const [amount, setAmount] = useState(0);
   const dispatch = useDispatch();
   let amount = useSelector(
     (state: any) => state.spendingReducer.temporaryAmount
