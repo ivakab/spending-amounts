@@ -7,8 +7,8 @@ import HistoryCharts from "./components/HistoryCharts/HistoryCharts";
 import { Route, Routes } from "react-router-dom";
 import { getSpending } from "./components/api/SpendingApi";
 import { setNewSpending } from "./redux/spending-reducer";
-import { CategoryValueState } from "./redux/spending-reducer";
 import { useDispatch } from "react-redux";
+import { CategoryValueState } from "./interfaces/ISpendingProps";
 
 function App() {
   const dispatch = useDispatch();

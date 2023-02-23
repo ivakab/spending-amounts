@@ -3,10 +3,9 @@ import styles from "./SpendingHistory.module.css";
 import { TypeImageMapping } from "../../../utils/typeImageMapping";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteSpendingApi } from "../../api/SpendingApi";
-import {
-  CategoryValueState,
-  deleteFromState,
-} from "../../../redux/spending-reducer";
+import { deleteFromState } from "../../../redux/spending-reducer";
+import { HistoryCard } from "./HistoryCard";
+import { CategoryValueState } from "../../../interfaces/ISpendingProps";
 
 const SpendingHistory = () => {
   const categories: CategoryValueState[] = useSelector(
@@ -23,20 +22,12 @@ const SpendingHistory = () => {
   return (
     <div className={styles.history}>
       {categories.length
-        ? categories.map((item: CategoryValueState, index: number) => (
-            <div key={index} className={styles.historyCards}>
-              <div
-                className={styles.type}
-                onClick={() => deleteSpending(item._id)}
-              >
-                <img
-                  className={styles.image}
-                  src={TypeImageMapping[item.type]}
-                />
-              </div>
-              <div className={styles.date}>{item.date.toDateString()}</div>
-              <div className={styles.amount}>{`${item.amount} $`}</div>
-            </div>
+        ? categories.map((item: CategoryValueState) => (
+            <HistoryCard
+              key={item._id}
+              card={item}
+              deleteSpending={deleteSpending}
+            />
           ))
         : `no spending yet`}
     </div>
