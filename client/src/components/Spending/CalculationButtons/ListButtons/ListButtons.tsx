@@ -1,4 +1,5 @@
 import React from "react";
+import deleteButton from "../../../../images/deleteButton.png";
 import {
   deleteLastSimbol,
   IButtonInfo,
@@ -26,7 +27,7 @@ const buttonValues: IButtonInfo[] = [
   { value: "0", icon: "" },
   {
     value: "del",
-    icon: "/client/src/images/deleteButton.png",
+    icon: deleteButton,
     onClick: deleteLastSimbol,
   },
 ];

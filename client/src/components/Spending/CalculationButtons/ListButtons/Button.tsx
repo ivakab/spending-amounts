@@ -15,12 +15,11 @@ export const Button = (props: IProps) => {
       }}
       className={styles.valueBtn}
     >
-      {/* {item.hasImage ? (
-        <img className={styles.deleteButton} src={item.value} />
+      {props.info.value === "del" ? (
+        <img className={styles.deleteButton} src={props.info.icon} />
       ) : (
-        item.value
-      )} */}
-      {props.info.value}
+        props.info.value
+      )}
     </button>
   );
 };
