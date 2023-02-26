@@ -1,5 +1,5 @@
 import { AnyAction, Dispatch } from "redux";
-import { ThunkActionDispatch } from "redux-thunk";
+import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { deleteSpendingApi } from "../components/api/SpendingApi";
 import { CategoryValueState } from "../interfaces/ISpendingProps";
 
@@ -74,6 +74,16 @@ export const deleteFromStateThunk = (id: string) => (dispatch: any) => {
   deleteSpendingApi(id).then((res) => {
     if (res.acknowledged) dispatch(deleteFromState({ _id: id }));
   });
-};
+}; 
+
+// export const deleteFromStateThunk = (
+//   id: string
+// ): ThunkAction<Promise<void>, ActionPayload, unknown, ActionType> => {
+//   return async (dispatch) => {
+//     deleteSpendingApi(id).then((res) => {
+//       if (res.acknowledged) dispatch(deleteFromState({ _id: id }));
+//     });
+//   };
+// };
 
 export default spendingReducer;
