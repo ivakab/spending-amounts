@@ -3,7 +3,10 @@ import styles from "./SpendingHistory.module.css";
 import { TypeImageMapping } from "../../../utils/typeImageMapping";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteSpendingApi } from "../../api/SpendingApi";
-import { deleteFromState } from "../../../redux/spending-reducer";
+import {
+  deleteFromState,
+  deleteFromStateThunk,
+} from "../../../redux/spending-reducer";
 import { HistoryCard } from "./HistoryCard";
 import { CategoryValueState } from "../../../interfaces/ISpendingProps";
 
@@ -14,9 +17,8 @@ const SpendingHistory = () => {
   const dispatch = useDispatch();
 
   const deleteSpending = (id: string) => {
-    deleteSpendingApi(id).then((res) => {
-      if (res.acknowledged) dispatch(deleteFromState({ _id: id }));
-    });
+    // @ts-ignore
+    dispatch(deleteFromStateThunk(id));
   };
 
   return (

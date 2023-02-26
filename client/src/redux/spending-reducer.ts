@@ -1,3 +1,6 @@
+import { AnyAction, Dispatch } from "redux";
+import { ThunkActionDispatch } from "redux-thunk";
+import { deleteSpendingApi } from "../components/api/SpendingApi";
 import { CategoryValueState } from "../interfaces/ISpendingProps";
 
 enum TypeOfAction {
@@ -63,14 +66,14 @@ export const setNewSpending = (payload: ActionPayload) => {
   return { type: TypeOfAction.SET_AMOUNT_SPENDING, payload: payload };
 };
 
-// export const initSpendings = (payload: ActionPayload[]) => {
-//   return payload.map((item) => {
-//     return { type: TypeOfAction.SET_AMOUNT_SPENDING, payload: item };
-//   });
-// };
-
 export const deleteFromState = (payload: ActionPayload) => {
   return { type: TypeOfAction.DELETE_SPENDING, payload: payload };
+};
+
+export const deleteFromStateThunk = (id: string) => (dispatch: any) => {
+  deleteSpendingApi(id).then((res) => {
+    if (res.acknowledged) dispatch(deleteFromState({ _id: id }));
+  });
 };
 
 export default spendingReducer;
