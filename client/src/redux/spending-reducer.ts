@@ -1,7 +1,11 @@
+import { createSpending } from "./../components/api/SpendingApi";
 import { AnyAction, Dispatch } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { deleteSpendingApi } from "../components/api/SpendingApi";
-import { CategoryValueState } from "../interfaces/ISpendingProps";
+import {
+  CategoryValueState,
+  NewCategoryValueState,
+} from "../interfaces/ISpendingProps";
 
 enum TypeOfAction {
   SET_AMOUNT_SPENDING = "SET_AMOUNT_SPENDING",
@@ -66,6 +70,24 @@ export const setNewSpending = (payload: ActionPayload) => {
   return { type: TypeOfAction.SET_AMOUNT_SPENDING, payload: payload };
 };
 
+export const setSpendingThunk =
+  (type: string, date: Date, amount: number) => (dispatch: any) => {
+    const spending: NewCategoryValueState = {
+      type: type,
+      amount: amount,
+      date: date,
+    };
+    createSpending(spending).then((res) => {
+      const newSpending: CategoryValueState = {
+        amount: res.amount,
+        date: res.date,
+        type: res.type,
+        _id: res._id,
+      };
+      dispatch(setNewSpending(newSpending));
+    });
+  };
+
 export const deleteFromState = (payload: ActionPayload) => {
   return { type: TypeOfAction.DELETE_SPENDING, payload: payload };
 };
@@ -74,7 +96,7 @@ export const deleteFromStateThunk = (id: string) => (dispatch: any) => {
   deleteSpendingApi(id).then((res) => {
     if (res.acknowledged) dispatch(deleteFromState({ _id: id }));
   });
-}; 
+};
 
 // export const deleteFromStateThunk = (
 //   id: string

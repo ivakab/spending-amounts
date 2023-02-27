@@ -11,7 +11,7 @@ const Spending = () => {
       <CalculationButtons amount={amount} setAmount={setAmount} />
       <CategoriesBlock
         amount={amount}
-        onChange={(emptyAmount: string) => setAmount(emptyAmount)}
+        onChange={(amount: string) => setAmount(amount)}
       />
       <SpendingHistory />
     </div>

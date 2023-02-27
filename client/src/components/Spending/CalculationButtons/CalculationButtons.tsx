@@ -10,8 +10,6 @@ interface IProps {
 }
 
 const CalculationButtons = (props: IProps) => {
-  const dispatch = useDispatch();
-
   return (
     <div>
       <div className={styles.currentEnter}>{props.amount}</div>
