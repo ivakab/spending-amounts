@@ -6,50 +6,35 @@ import { CategoryValueState } from "../../interfaces/ISpendingProps";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-// const UserData = [
-//   {
-//     id: 1,
-//     year: 2016,
-//     userGain: 80000,
-//     userLost: 823,
-//   },
-//   {
-//     id: 2,
-//     year: 2017,
-//     userGain: 45677,
-//     userLost: 345,
-//   },
-//   {
-//     id: 3,
-//     year: 2018,
-//     userGain: 78888,
-//     userLost: 555,
-//   },
-//   {
-//     id: 4,
-//     year: 2019,
-//     userGain: 90000,
-//     userLost: 4555,
-//   },
-//   {
-//     id: 5,
-//     year: 2020,
-//     userGain: 4300,
-//     userLost: 234,
-//   },
-// ];
-
 const HistoryCharts = () => {
-  const categories = useSelector(
-    (state: any) => state.spendingReducer.categories
-  );
+  const amounts = useSelector((state: any) => state.spendingReducer.categories);
+
+  let categories: string[] = [];
+
+  type amountType = {
+    type: string;
+    amount: number;
+  };
+
+  let uniqueData: CategoryValueState[] = [];
+
+  amounts.map((item: CategoryValueState) => {
+    if (!categories.includes(item.type)) {
+      categories.push(item.type);
+      uniqueData.push(item);
+    } else {
+      uniqueData.map((amount) => {
+        if (amount.type === item.type) amount.amount += item.amount;
+      });
+    }
+  });
 
   const [userData, setUserData] = useState({
-    labels: categories.map((data: CategoryValueState) => data.type),
+    labels: uniqueData.map((data: amountType) => data.type),
     datasets: [
       {
         label: "Users Gained",
-        data: categories.map((data: CategoryValueState) => data.amount),
+        data: uniqueData.map((data: amountType) => data.amount),
         backgroundColor: [
           "rgba(75,192,192,1)",
           "rgba(0,190,100,1)",

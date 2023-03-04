@@ -21,6 +21,12 @@
   grid-area: type;
 }
 
+.type:hover {
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px 2px rgba(97, 99, 93, 0.8);
+}
+
 .date {
   grid-area: date;
 }
