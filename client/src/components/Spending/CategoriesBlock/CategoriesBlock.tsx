@@ -37,27 +37,23 @@ const CategoriesBlock = (props: IProps) => {
     {
       name: "Food",
       img: TypeImageMapping.food,
-      onClick: () => setSpending("food"),
     },
     {
       name: "Transport",
       img: TypeImageMapping.transport,
-      onClick: () => setSpending("transport"),
     },
     {
       name: "Health",
       img: TypeImageMapping.health,
-      onClick: () => setSpending("health"),
     },
     {
       name: "Other",
       img: TypeImageMapping.other,
-      onClick: () => setSpending("other"),
     },
     {
       name: "Add",
       img: TypeImageMapping.add,
-      onClick: () => setShowNewCategory(true), //при нажатии должно появляться
+      //при нажатии должно появляться
       //модальное окно с возможностью добавить новые категории
     },
   ];
@@ -67,6 +63,11 @@ const CategoriesBlock = (props: IProps) => {
       <ListCategories
         setSpending={(type: string) => setSpending(type)}
         categoriesList={categoriesList}
+        onClick={(item) =>
+          item.name === "Add"
+            ? setShowNewCategory(true)
+            : setSpending(item.name.toLowerCase())
+        }
       />
       <AddNewCategoryModal
         isOpen={showNewCategory}

@@ -1,5 +1,4 @@
-export interface ICategories {
+export interface ICategory {
   name: string;
   img: string;
-  onClick: () => void;
 }

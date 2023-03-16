@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./AddNewCategoryModal.module.css";
 
 type Modal = {
@@ -7,6 +7,8 @@ type Modal = {
 };
 
 const AddNewCategoryModal = (props: Modal) => {
+  const [newCategory, setNewCategory] = useState("");
+
   if (!props.isOpen) {
     return <></>;
   }
@@ -15,10 +17,9 @@ const AddNewCategoryModal = (props: Modal) => {
       className={`${styles.modal} + ${styles.active}`}
       onClick={props.onClose}
     >
-      <div
-        className={styles.content}
-        onClick={(e) => e.stopPropagation()}
-      ></div>
+      <div className={styles.content} onClick={(e) => e.stopPropagation()}>
+        <input value={""} />
+      </div>
     </div>
   );
 };

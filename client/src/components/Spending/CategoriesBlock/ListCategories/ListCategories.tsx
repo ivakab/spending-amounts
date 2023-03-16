@@ -1,11 +1,12 @@
 import React from "react";
-import { ICategories } from "../../../../interfaces/ICategoriesProps";
+import { ICategory } from "../../../../interfaces/ICategoriesProps";
 import { TypeImageMapping } from "../../../../utils/typeImageMapping";
 import styles from "./ListCategories.module.css";
 
 interface IProps {
   setSpending: (type: string) => void;
-  categoriesList: ICategories[];
+  categoriesList: ICategory[];
+  onClick: (el: ICategory) => void;
 }
 
 export const ListCategories = (props: IProps) => {
@@ -14,7 +15,7 @@ export const ListCategories = (props: IProps) => {
       {props.categoriesList.map((item, index) => {
         return (
           <button
-            onClick={item.onClick}
+            onClick={() => props.onClick(item)}
             className={styles.categoryBtn}
             key={index}
           >
