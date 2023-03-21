@@ -1,5 +1,7 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ICategory } from "../../../../interfaces/ICategoriesProps";
+import { deleteCategoryThunk } from "../../../../redux/categories-reducer";
 import { TypeImageMapping } from "../../../../utils/typeImageMapping";
 import styles from "./ListCategories.module.css";
 
@@ -19,7 +21,7 @@ export const ListCategories = (props: IProps) => {
             className={styles.categoryBtn}
             key={index}
           >
-            {<img className={styles.iconImg} src={item.img} />}
+            {<img className={styles.iconImg} src={item.image} />}
           </button>
         );
       })}

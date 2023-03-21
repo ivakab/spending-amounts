@@ -49,4 +49,25 @@ router.post("/categories", (req, res) => {
   });
 });
 
+router.delete("/categories/:id", (req, res) => {
+  Categories.deleteOne({ _id: req.params.id }, req.body).then((spending) =>
+    res.send(spending)
+  );
+});
+
+router.get("/amounts", (req, res) => {
+  Spending.find({}).then((spending) => {
+    const totalAmount = {};
+    spending.map((item) => {
+      // const categoryName = item.name.toLowerCase();
+      if (totalAmount[item.type]) {
+        totalAmount[item.type] += item.amount;
+      } else {
+        totalAmount[item.type] = item.amount;
+      }
+    });
+    res.send(totalAmount);
+  });
+});
+
 module.exports = router;

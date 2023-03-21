@@ -9,6 +9,8 @@ import { getSpending } from "./components/api/SpendingApi";
 import { setNewSpending } from "./redux/spending-reducer";
 import { useDispatch } from "react-redux";
 import { CategoryValueState } from "./interfaces/ISpendingProps";
+import { getCategories } from "./components/api/CategoryApi";
+import { CategoriesState, setNewCategory } from "./redux/categories-reducer";
 
 function App() {
   const dispatch = useDispatch();
@@ -16,6 +18,14 @@ function App() {
     getSpending().then((res) =>
       res.map((item: CategoryValueState) => {
         dispatch(setNewSpending({ ...item }));
+      })
+    );
+  }, []);
+
+  useEffect(() => {
+    getCategories().then((res) =>
+      res.map((item: CategoriesState) => {
+        dispatch(setNewCategory({ ...item }));
       })
     );
   }, []);

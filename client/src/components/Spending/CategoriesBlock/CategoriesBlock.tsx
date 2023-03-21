@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import styles from "./CategoriesBlock.module.css";
 import { TypeImageMapping } from "../../../utils/typeImageMapping";
 import { setSpendingThunk } from "../../../redux/spending-reducer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AddNewCategoryModal from "./AddNewCategoryModal";
 import { ListCategories } from "./ListCategories/ListCategories";
+import { deleteCategoryThunk } from "../../../redux/categories-reducer";
 
 interface IProps {
   amount: string;
@@ -36,38 +37,53 @@ const CategoriesBlock = (props: IProps) => {
   const categoriesList = [
     {
       name: "Food",
-      img: TypeImageMapping.food,
+      image: TypeImageMapping.food,
     },
     {
       name: "Transport",
-      img: TypeImageMapping.transport,
+      image: TypeImageMapping.transport,
     },
     {
       name: "Health",
-      img: TypeImageMapping.health,
+      image: TypeImageMapping.health,
     },
     {
       name: "Other",
-      img: TypeImageMapping.other,
+      image: TypeImageMapping.other,
     },
     {
       name: "Add",
-      img: TypeImageMapping.add,
+      image: TypeImageMapping.add,
       //при нажатии должно появляться
       //модальное окно с возможностью добавить новые категории
     },
   ];
 
+  const categories = useSelector(
+    (state: any) => state.categoriesReducer.categories
+  );
+  // const deleteCat = (id: string) => {
+  //   // @ts-ignore
+  //   dispatch(deleteCategoryThunk(id));
+  // };
+  // const showCat = () => {
+  //   console.log(categories);
+  // };
+
   return (
     <div>
       <ListCategories
         setSpending={(type: string) => setSpending(type)}
-        categoriesList={categoriesList}
+        categoriesList={categories}
         onClick={(item) =>
           item.name === "Add"
             ? setShowNewCategory(true)
             : setSpending(item.name.toLowerCase())
         }
+        // onClick={(item) => {
+        //   // @ts-ignore
+        //   deleteCat(item._id);
+        // }}
       />
       <AddNewCategoryModal
         isOpen={showNewCategory}
