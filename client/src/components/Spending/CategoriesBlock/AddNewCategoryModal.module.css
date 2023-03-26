@@ -19,6 +19,10 @@
   pointer-events: all;
 }
 
+.label {
+  margin-bottom: 8px;
+}
+
 .content {
   padding: 20px;
   border-radius: 12px;

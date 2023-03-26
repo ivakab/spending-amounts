@@ -2,7 +2,10 @@ import React, { useMemo, useState } from "react";
 import { TypeImageMapping } from "../../../utils/typeImageMapping";
 import styles from "./AddNewCategoryModal.module.css";
 import { v4 } from "uuid";
-import { setCategoryThunk } from "../../../redux/categories-reducer";
+import {
+  CategoriesState,
+  setCategoryThunk,
+} from "../../../redux/categories-reducer";
 import { useDispatch, useSelector } from "react-redux";
 
 const ListCategories = [
@@ -60,23 +63,20 @@ type Modal = {
 const AddNewCategoryModal = (props: Modal) => {
   const [newCategory, setNewCategory] = useState("");
 
-  const distinctInfo = useMemo(
-    () => {
-      // tut kakoi to kod
-      return {
-        names: new Set(),
-      };
-    },
-    [
-      /* tut categorii iz redux */
-    ]
+  const categories = useSelector(
+    (state: any) => state.categoriesReducer.categories
   );
+
   const dispatch = useDispatch();
 
+  const names = new Set();
+  categories.forEach((item: CategoriesState) => names.add(item.name));
+
   const createNewCategory = (name: string, image: string) => {
-    if (distinctInfo.names.has(name)) {
+    if (names.has(name)) {
       return;
     }
+    names.add(name);
     // @ts-ignore
     dispatch(setCategoryThunk(name, image));
   };
@@ -90,6 +90,7 @@ const AddNewCategoryModal = (props: Modal) => {
       onClick={props.onClose}
     >
       <div className={styles.content} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.label}>Enter the name of the new category:</div>
         <input
           value={newCategory}
           onChange={(e) => setNewCategory(e.target.value)}
@@ -101,7 +102,9 @@ const AddNewCategoryModal = (props: Modal) => {
               <div
                 key={index}
                 className={styles.category}
-                onClick={() => createNewCategory(type, TypeImageMapping[type])}
+                onClick={() =>
+                  createNewCategory(newCategory, TypeImageMapping[type])
+                }
               >
                 <img src={TypeImageMapping[type]} className={styles.image} />
               </div>

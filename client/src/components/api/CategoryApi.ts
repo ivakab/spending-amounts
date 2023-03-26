@@ -40,9 +40,11 @@ export const deleteCategoryApi = async (id: string) => {
   }
 };
 
-export const getTotalAmount = async () => {
+export const getTotalAmount = async (startDate?: any, endDate?: any) => {
   try {
-    const res = await instance.get("/amounts");
+    const res = await instance.get("/amounts", {
+      params: { startDate, endDate },
+    });
     return res.data;
   } catch (e) {
     console.error(e);

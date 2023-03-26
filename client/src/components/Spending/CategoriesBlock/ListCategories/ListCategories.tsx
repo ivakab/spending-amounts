@@ -22,6 +22,7 @@ export const ListCategories = (props: IProps) => {
             key={index}
           >
             {<img className={styles.iconImg} src={item.image} />}
+            {item.name}
           </button>
         );
       })}

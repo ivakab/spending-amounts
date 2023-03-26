@@ -23,14 +23,18 @@ const CategoriesBlock = (props: IProps) => {
   const [showNewCategory, setShowNewCategory] = useState(false);
 
   const getDate = () => {
-    const date = new Date().getTime();
-    return new Date(date);
+    let date = new Date(Date.UTC(2021, 5, 28, 3, 0, 0));
+    let formatter = new Intl.DateTimeFormat("en-US", {
+      timeZone: "America/Denver",
+    });
+    let usDate = formatter.format(date);
+    return new Date(usDate);
   };
 
   const setSpending = (type: string) => {
     const date = getDate();
     // @ts-ignore
-    dispatch(setSpendingThunk(type, date, +props.amount));
+    dispatch(setSpendingThunk(type, new Date(), +props.amount));
     props.onChange("");
   };
 
@@ -62,29 +66,33 @@ const CategoriesBlock = (props: IProps) => {
   const categories = useSelector(
     (state: any) => state.categoriesReducer.categories
   );
+
+  const basa = useSelector((state: any) => state.spendingReducer.categories);
   // const deleteCat = (id: string) => {
   //   // @ts-ignore
   //   dispatch(deleteCategoryThunk(id));
   // };
-  // const showCat = () => {
-  //   console.log(categories);
-  // };
+  // // const showCat = () => {
+  // // };
 
   return (
     <div>
       <ListCategories
         setSpending={(type: string) => setSpending(type)}
         categoriesList={categories}
-        onClick={(item) =>
-          item.name === "Add"
-            ? setShowNewCategory(true)
-            : setSpending(item.name.toLowerCase())
-        }
+        onClick={(item) => setSpending(item.name)}
         // onClick={(item) => {
         //   // @ts-ignore
         //   deleteCat(item._id);
         // }}
       />
+      <button>
+        <img
+          className={styles.img}
+          src={TypeImageMapping.add}
+          onClick={() => setShowNewCategory(true)}
+        />
+      </button>
       <AddNewCategoryModal
         isOpen={showNewCategory}
         onClose={() => setShowNewCategory(false)}

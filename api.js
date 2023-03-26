@@ -4,7 +4,12 @@ const Spending = require("./spending");
 const Categories = require("./categories");
 
 router.get("/spending", (req, res) => {
-  Spending.find({}).then((spending) => {
+  let filter = {};
+  if (req.query.filter) {
+    filter = { ...filter, ...JSON.parse(req.query.filter) };
+  }
+  console.log(filter);
+  Spending.find(filter).then((spending) => {
     res.send(spending);
   });
 });
@@ -56,10 +61,15 @@ router.delete("/categories/:id", (req, res) => {
 });
 
 router.get("/amounts", (req, res) => {
-  Spending.find({}).then((spending) => {
+  console.log(req.query);
+  Spending.find({
+    $and: [
+      { date: { $gte: req.query.startDate } },
+      { date: { $lte: req.query.endDate } },
+    ],
+  }).then((spending) => {
     const totalAmount = {};
     spending.map((item) => {
-      // const categoryName = item.name.toLowerCase();
       if (totalAmount[item.type]) {
         totalAmount[item.type] += item.amount;
       } else {
@@ -67,6 +77,19 @@ router.get("/amounts", (req, res) => {
       }
     });
     res.send(totalAmount);
+  });
+});
+
+router.get("/filter", (req, res) => {
+  console.log(req.query);
+  Spending.find({
+    $and: [
+      { amount: { $gte: req.query.filter.minAmount } },
+      { amount: { $lte: req.query.filter.maxAmount } },
+      // { $or: [req.query.filter.types.map((item) => ({ type: item }))] },
+    ],
+  }).then((spending) => {
+    res.send(spending);
   });
 });
 

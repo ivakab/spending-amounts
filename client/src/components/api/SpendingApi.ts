@@ -50,3 +50,35 @@ export const deleteSpendingApi = async (id: string) => {
     return null;
   }
 };
+
+const generateSpendingFilter = (filter: {
+  [key: string]: number | string | String[];
+}) => {
+  const filterData: any = {};
+  Object.entries(filter).forEach(([key, value]) => {
+    if (key === "minAmount") {
+      filterData.amount = { $gte: value };
+    }
+    if (key === "maxAmount") {
+      filterData.amount = { $lte: value };
+    }
+    if (value && key === "types" && typeof value === "object") {
+      filterData.type = { $or: value.map((item) => ({ formType: item })) };
+    }
+  });
+  return { $and: filterData };
+};
+
+export const getFilterAmounts = async (filter: {
+  [key: string]: string | number | String[];
+}) => {
+  try {
+    const res = await instance.get("/filter", {
+      params: { filter },
+    });
+    return res.data;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+};

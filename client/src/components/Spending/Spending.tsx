@@ -13,7 +13,7 @@ const Spending = () => {
         amount={amount}
         onChange={(amount: string) => setAmount(amount)}
       />
-      <SpendingHistory />
+      {/* <SpendingHistory /> */}
     </div>
   );
 };

@@ -14,6 +14,9 @@ const Navigation = () => {
         <NavLink to="/charts">
           <button> Charts</button>
         </NavLink>
+        <NavLink to="/history">
+          <button> History</button>
+        </NavLink>
         <button onClick={goBack}>Go back</button>
       </div>
       <Outlet />

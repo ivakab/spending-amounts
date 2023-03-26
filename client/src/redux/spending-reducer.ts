@@ -10,11 +10,12 @@ import {
 enum TypeOfAction {
   SET_AMOUNT_SPENDING = "SET_AMOUNT_SPENDING",
   DELETE_SPENDING = "DELETE_SPENDING",
+  SET_NEW_FILTER = "SET_NEW_FILTER",
 }
 
 interface ActionType {
   type: TypeOfAction;
-  payload: ActionPayload;
+  payload: ActionPayload & FilterType;
 }
 
 type ActionPayload = {
@@ -24,12 +25,20 @@ type ActionPayload = {
   type?: string;
 };
 
+export type FilterType = {
+  minAmount: number;
+  maxAmount: number;
+  types: String[];
+};
+
 interface IState {
   categories: CategoryValueState[];
+  filter: FilterType;
 }
 
 let initialState: IState = {
   categories: [],
+  filter: { minAmount: 0, maxAmount: 0, types: [] },
 };
 
 const spendingReducer = (
@@ -59,6 +68,16 @@ const spendingReducer = (
         categories: state.categories.filter(
           (item) => item._id != action.payload._id
         ),
+      };
+    }
+    case TypeOfAction.SET_NEW_FILTER: {
+      return {
+        ...state,
+        filter: {
+          minAmount: action.payload.minAmount,
+          maxAmount: action.payload.maxAmount,
+          types: action.payload.types,
+        },
       };
     }
     default:
@@ -96,6 +115,10 @@ export const deleteFromStateThunk = (id: string) => (dispatch: any) => {
   deleteSpendingApi(id).then((res) => {
     if (res.acknowledged) dispatch(deleteFromState({ _id: id }));
   });
+};
+
+export const setNewFilter = (payload: FilterType) => {
+  return { type: TypeOfAction.SET_NEW_FILTER, payload: payload };
 };
 
 // export const deleteFromStateThunk = (
